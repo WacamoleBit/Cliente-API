@@ -1,7 +1,7 @@
 version: '3.3'
 services:
   gadgets:
-    image: amazoncorreto:17
+    image: amazoncorretto:17
     networks:
     - network_apis
     volumes:
