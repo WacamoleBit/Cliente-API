@@ -1,6 +1,6 @@
 version: '3.3'
 services:
-  gadget:
+  gadgets:
     image: amazoncorreto:17
     networks:
     - network_apis
@@ -13,7 +13,7 @@ services:
     command:
     - java
     - -jar
-    - -apps/GadgetAPI.jar
+    - /apps/GadgetAPI.jar
     depends_on:
     - db
     links:
