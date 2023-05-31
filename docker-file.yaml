@@ -1,0 +1,32 @@
+version: '3.3'
+services:
+  gadget:
+    image: amazoncorreto:17
+    networks:
+    - network_apis
+    volumes:
+    - ./apps:/apps
+    ports:
+    - 8080:8080
+    environtment:
+      MYSQL_HOST: db
+    command:
+    - java
+    - -jar
+    - -apps/GadgetAPI.jar
+    depends_on:
+    - db
+    links:
+    - db
+    restart: always
+  db:
+    image: mariadb
+    networks:
+      - network_apis
+    environtment:
+      MARIADB_ROOT_PASSWORD: 123456
+  volumes:
+    - ./apps/gadgets:docker-entrypoint-initdb.d
+    - ./apps/gadgets/data:/var/lib/mysql
+networks:
+  network_apis:
