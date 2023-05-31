@@ -8,7 +8,7 @@ services:
     - ./apps:/apps
     ports:
     - 8080:8080
-    environtment:
+    environment:
       MYSQL_HOST: db
     command:
     - java
@@ -23,7 +23,7 @@ services:
     image: mariadb
     networks:
       - network_apis
-    environtment:
+    environment:
       MARIADB_ROOT_PASSWORD: 123456
     volumes:
     - ./apps/gadgets:docker-entrypoint-initdb.d
