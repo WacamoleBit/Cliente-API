@@ -26,7 +26,7 @@ services:
     environment:
       MARIADB_ROOT_PASSWORD: 123456
     volumes:
-    - ./apps/gadgets:docker-entrypoint-initdb.d
+    - ./apps/gadgets:/docker-entrypoint-initdb.d
     - ./apps/gadgets/data:/var/lib/mysql
 networks:
   network_apis:
