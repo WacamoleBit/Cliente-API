@@ -15,11 +15,30 @@ services:
     - -jar
     - /apps/GadgetAPI.jar
     depends_on:
-    - db
+    - gadgets_db
     links:
-    - db
+    - gadgets_db:db
     restart: always
-  db:
+  videojuegos:
+    image: amazoncorretto:17
+    networks:
+    - network_apis
+    volumes:
+    - ./apps:/apps
+    ports:
+    - 8081:8081
+    environment:
+      MYSQL_HOST: db
+    command:
+    - java
+    - -jar
+    - /apps/VideojuegosAPI.jar
+    depends_on:
+    - videojuegos_db
+    links:
+    - videojuegos_db:db
+    restart: always
+  gadgets_db:
     image: mariadb
     networks:
       - network_apis
@@ -28,5 +47,14 @@ services:
     volumes:
     - ./apps/gadgets:/docker-entrypoint-initdb.d
     - ./apps/gadgets/data:/var/lib/mysql
+  videojuegos_db:
+    image: mariadb
+    networks:
+      - network_apis
+    environment:
+      MARIADB_ROOT_PASSWORD: 123456
+    volumes:
+    - ./apps/videojuegos:/docker-entrypoint-initdb.d
+    - ./apps/videojuegos/data:/var/lib/mysql
 networks:
   network_apis:
